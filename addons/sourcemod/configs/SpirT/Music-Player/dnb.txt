@@ -1,0 +1,11 @@
+"DnB"
+{
+	"dnb1"
+	{
+		"file" "dnb1.mp3"
+	}
+	"dnb2"
+	{
+		"file" "dnb2.mp3"
+	}
+}

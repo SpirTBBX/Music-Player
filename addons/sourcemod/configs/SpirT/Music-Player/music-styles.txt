@@ -1,0 +1,18 @@
+"MusicStyles"
+{
+	"HouseMix"
+	{
+		"handle" "HouseMix"
+		"cfgfile" "housemix.txt"
+	}
+	"DnB"
+	{
+		"handle" "DnB"
+		"cfgfile" "dnb.txt"
+	}
+	"Lo-Fi"
+	{
+		"handle" "Lo-Fi"
+		"cfgfile" "lofi.txt"
+	}
+}

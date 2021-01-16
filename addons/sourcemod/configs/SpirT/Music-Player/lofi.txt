@@ -1,0 +1,11 @@
+"Lo-Fi"
+{
+	"lofi1"
+	{
+		"file" "lofi1.mp3"
+	}
+	"lofi2"
+	{
+		"file" "lofi2.mp3"
+	}
+}
