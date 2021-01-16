@@ -3,7 +3,7 @@
 #define DEBUG
 
 #define PLUGIN_AUTHOR "SpirT"
-#define PLUGIN_VERSION "1.0"
+#define PLUGIN_VERSION "1.0.1"
 
 #include <sourcemod>
 #include <sdktools>
@@ -220,7 +220,6 @@ public int MusicsHandle(Menu menu, MenuAction action, int client, int item)
 				if(!FileExists(songPath))
 				{
 					PrintToChat(client, "[SpirT - MUSIC PLAYER] We're sorry, but the song you're trying to play is misconfigured or the sound file is not available at the server. Please select another song.");
-					delete kvMusic;
 				}
 				else
 				{
@@ -232,8 +231,6 @@ public int MusicsHandle(Menu menu, MenuAction action, int client, int item)
 					playingSong[client] = correctSound;
 					PrintToChat(client, "[SpirT - MUSIC PLAYER] Playing song: %s", selectedSong);
 					musicPlaying[client] = true;
-					delete kvMusic;
-					delete menu;
 				}
 			}
 		} while (KvGotoNextKey(kvMusic));
