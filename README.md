@@ -16,5 +16,4 @@ This plugin has a VipMenu for flag o (flag custom1).
 - sm_playervol <volume> - Sets the volume that all the musics will be played with.
 
 # Video Examples:
- ![ExampleVideo1](https://www.youtube.com/watch?v=sOyAm93Kc2s)
-
+ https://www.youtube.com/watch?v=sOyAm93Kc2s
