@@ -3,7 +3,7 @@
 #define DEBUG
 
 #define PLUGIN_AUTHOR "SpirT"
-#define PLUGIN_VERSION "1.0.1"
+#define PLUGIN_VERSION "1.0.2"
 
 #include <sourcemod>
 #include <sdktools>
@@ -53,6 +53,7 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_music", Command_Music);
 	RegConsoleCmd("sm_stop", Command_StopMusic);
 	RegConsoleCmd("sm_playervol", Command_PlayerVol);
+	HookEvent("round_start", RoundStart);
 	
 	//Just to keep the cookies information up to date
 	for (int i = 1; i < MaxClients; i++)
@@ -64,6 +65,55 @@ public void OnPluginStart()
         
         OnClientCookiesCached(i);
     }
+}
+
+public Action RoundStart(Event event, const char[] name, bool dontBroadcast)
+{
+	for (int i = 1; i < MaxClients; i++)
+    {
+        musicPlaying[i] = false;
+    }
+}
+
+public void OnMapStart()
+{
+	AddFolderToDownloadsTable("sound/SpirT");
+}
+
+void AddFolderToDownloadsTable(char[] Folder)
+{
+	if(DirExists(Folder))
+	{
+		Handle DIR = OpenDirectory(Folder);
+		char BUFFER[PLATFORM_MAX_PATH];
+		FileType FILETYPE = FileType_Unknown;
+		
+		while(ReadDirEntry(DIR, BUFFER, sizeof(BUFFER), FILETYPE))
+		{
+			if(!StrEqual(BUFFER, "") && !StrEqual(BUFFER, ".") && !StrEqual(BUFFER, ".."))
+			{
+				Format(BUFFER, sizeof(BUFFER), "%s/%s", Folder, BUFFER);
+				if(FILETYPE == FileType_File)
+				{
+					if(FileExists(BUFFER, true))
+					{
+						AddFileToDownloadsTable(BUFFER);
+						PrecacheSound(BUFFER);
+						PrintToServer("File '%s' was precached and added to the downloads table.", BUFFER);
+					}
+				}
+				else if(FILETYPE == FileType_Directory)
+				{
+					AddFolderToDownloadsTable(BUFFER);
+				}
+			}
+		}
+		CloseHandle(DIR);
+	}
+	else
+	{
+		LogError("[SpirT - MUSIC PLAYER] Directory not exists - \"%s\"", Folder);
+	}
 }
 
 public Action Command_Music(int client, int args)
